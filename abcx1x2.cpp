@@ -2,76 +2,99 @@
 
 #include <math.h>
 
+const  long double eps = 1e-9;
+
+bool isZero(double a) {
+	return fabs(a) < eps;
+}
+
+bool isEqual(double a, double b) {
+	return isZero(a - b);   
+}
+
+bool Less(double a, double b) {
+	return !isEqual(a, b) && (a < b);
+}
+
+
 int main() {
+
+
 	
-	printf ("This is programm for solution qadratic equation ax^2+bx+c=0 \n\n");
+	printf("SolveQdr - Solve a qadratic equation ax²+bx+c=0 \n\n");
 
-	printf ( "ver. 1.0 creator: Eccentricity  \n");
+	printf( "ver. 1.0 (c) Eccentricity  \n");
 
-	printf ("\n");
+	printf("\n");
 
-	double a, b, c, x, d, x1, x2;
+	double a, b, c, x, D, x1, x2;
 
-	printf("Please print a: \n");
+	printf("Please enter a: \n");
 
-	scanf ("%lf" , &a);
+	scanf("%lf", &a);
 
-	printf("Please print b: \n");
+	printf("Please enter b: \n");
 
-	scanf ("%lf" , &b);
+	scanf("%lf", &b);
 
-	printf("Please print c: \n");
+	printf("Please enter c: \n");
 
-	scanf ("%lf" , &c);
+	scanf("%lf", &c);
 
-	d = b*b-4*a*c;
-	if(a == 0 ){
+	D = b * b - 4 * a * c;
+	if (isZero(a)) {
+		printf("This equation is not qadratic, but linear \n");
 
-		printf("This equation is not qadratic \n");
-
-		if ((b == 0) && (c != 0)){
+		if (isZero(a) && !isZero(c)) {
 
 			printf("No solutions \n");
 
 		}
 
-		if(b != 0){
-			printf ("One solution: x =");
-			x1 = (-c)/b;
-			printf ("%g" , x1);
+		if (!isZero(b)) {
+			printf ("One solution: x = ");
+
+			x1 = (-c) / b + eps;
+
+			printf ("%lf" , x1);
+
 			printf ("\n");
 		}
 
-		if((b == 0)&&(c == 0)){
-
+		if (isZero(b) && isZero(c)) {
 			printf ("Infinity solutions: x ∈  R \n");
 
 		}
 		return 0;
 
 	}
-		if((a != 0) && (d > 0)){
-			x1 = (-b+sqrt(d)) / (2*a);
+	if (Less(0, D)) {
+		x1 = (-b + sqrt(D)) / (2 * a);
 
-			x2 = (-b-sqrt(d)) / (2*a);
+		x2 = (-b - sqrt(D)) / (2 * a);
 
-			printf ("Two solutions x1 = %lf ", x1, ", ");
+		printf("Two solutions x1 = %lf ", x1, ", ");
 
-			printf ("x2 = %lf", x2);
+		printf("x2 = %lf", x2);
 
-			printf ("\n");
+		printf("\n");
 
-		}
+	}
 
-		if(d == 0){
-			x1 = (-b) / (2 * a);
+	if (isZero(D)) {
 
-			printf ("One solution x = %lf", x1);
-			printf ("\n");
+		x1 = (-b) / (2 * a);
 
-		}
-		if (d < 0){
-			printf ("No solutions \n");
-		}
-	return 0;
+		printf("One solution x = %lf", x1);
+
+		printf("\n");
+
+	}
+	if (Less(D, 0)) {
+		printf("No solutions \n");
+	}
+
+printf("Congratulations you destroyed the qadratic equation \n");
+
+return 0;
 }
