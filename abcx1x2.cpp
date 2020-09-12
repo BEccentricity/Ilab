@@ -45,7 +45,7 @@ int main() {
 	if (isZero(a)) {
 		printf("This equation is not qadratic, but linear \n");
 
-		if (isZero(a) && !isZero(c)) {
+		if (isZero(b) && !isZero(c)) {
 
 			printf("No solutions \n");
 
